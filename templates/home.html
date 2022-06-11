@@ -1,0 +1,286 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Awards</title>
+
+    <!-- css mdb -->
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.1.0/mdb.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- custom css -->
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+      .main{
+   
+    height: 70vh;
+    background-image: url("{% static 'img/hero.jpg'%}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+    </style>
+
+  </head>
+  <body>
+
+   
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Navbar brand -->
+        <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'home' %}">
+        <h5>Awwards</h5>
+        </a>
+        <!-- Left links -->
+        <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Projects</a>
+          </li>
+        </ul> -->
+        <!-- Left links -->
+      </div>
+
+      <form class="d-flex input-group w-auto">
+        <input
+          type="search"
+          class="form-control rounded"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-addon"
+        />
+        <span class="input-group-text border-0" id="search-addon">
+          <i class="fas fa-search"></i>
+        </span>
+      </form>
+      <!-- Collapsible wrapper -->
+  
+      <!-- Right elements -->
+      <div class="d-flex align-items-center">
+
+
+          {% if request.user.is_authenticated %}
+          <a class="text-reset me-3" href="#">
+            <a href="{% url 'postproject' %}" class="btn btn-dark" href="#">SUBMIT YOUR SITE !</a>
+          
+            <a href="{% url 'profile' request.user.username %}"
+            class="nav-item nav-link {% if request.user.username in request.path %}active{% endif %}">
+            Profile page
+         </a>
+           </a>
+           {% else %}
+           <a class="text-reset me-3" href="#">
+            <a href="{% url 'signup' %}" class="nav-item nav-link">Register</a>
+            <a href="{% url 'login' %}" class="nav-item nav-link">login</a>
+            </a>
+           {% endif %}
+      
+       
+  
+       
+      </div>
+      <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 5rem;">
+    {{message}}
+
+  </div>
+  {% endfor %}
+{% endif %}
+
+  <!-- hero -->
+
+<div class="main">
+    <div class="container">
+
+        <p class="text-white">Site of the Day 12th June 2022</p>
+        <div class="row mt-4">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+    
+                <h1 class="mt-4 text-center">{{proje.title}}</h1>
+    
+                <p class="mt-2 text-center">{{proje.user.username}}</p>
+    
+                <div class="row text-center">
+    
+                    <div class="text-center col-md-2">
+                        <div class="-me text-center ">
+                            <h4  class="text-center text-white mt-4">8</4>
+                         </div>
+                         <p class="mt-2 text-white ">DESIGN</p>
+                    </div>
+                    <div class="text-center col-md-2">
+                        <div class="rating-me text-center ">
+                            <h4  class="text-center mt-4">8</4>
+                         </div>
+                         <p class="text-center text-white mt-2">USABILITY</p>
+                    </div>
+                    <div class="text-center col-md-2">
+                        <div class="rating-me text-center ">
+                            <h4  class="text-center mt-4">8</4>
+                         </div>
+                         <p class="text-center text-white mt-2">CREATIVITY</p>
+                    </div>
+                    <div class="rating-me col-md-2">
+                        <div class="circle content text-center ">
+                            <h4  class="text-center  mt-4">8</4>
+                         </div>
+                         <p class="text-center text-white mt-2">CONTENT</p>
+                    </div>
+    
+            
+                </div>
+    
+    
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+        <button class="btn btn-info mt-4">visit site</button>
+        <button class="btn btn-outline-white mt-4">Collect</button>
+      </div>
+</div>
+
+<div class="container">
+  <h6 class="mt-4">Sites of the day Previous Winners</h6>
+    <div class="row mt-4">
+      {% for project in projects %}
+        <div class="col-md-4">
+            <div class="card">
+              {% if project.image %}
+              <a href="{% url 'projects_details' project.id %}">
+              <img  src="{{project.image.url}}" class="card-img-top" alt="Wild Landscape"/></a>
+              {% else %}
+              <a href="{% url 'projects_details' project.id %}">
+                <img src="{% static 'img/hero.jpg' %}" class="card-img-top" alt="Wild Landscape"/></a>
+                {% endif %}
+                <div class="card-body">
+                  <a href="{% url 'projects_details' project.id %}">
+                  <h5 class="card-title">{{project.title}}</h5></a>
+                  <hr>
+                  <p class="card-text">
+                    <small class="text-muted">
+                        <i class="fas fa-user-alt"></i>
+                        By {{project.user.username}}</small>
+
+                    <span data-mdb-toggle="tooltip" title="Honorable Mention" class="badge badge-primary">HM</span>
+<span  data-mdb-toggle="tooltip" title="Developer Site" class="badge badge-secondary">DEV</span>
+<span data-mdb-toggle="tooltip" title="Site Of The Day Site" class="badge badge-warning">SOTD</span>
+                  </p>
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+       
+    </div>
+</div>
+
+
+
+<!-- Footer -->
+
+
+<footer class="bg-light text-center text-lg-start mt-4">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">The awards for design, creativity and innovation on the Internet.
+        </h5>
+  
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+            molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
+            aliquam voluptatem veniam, est atque cumque eum delectus sint!
+          </p>
+        </div>
+        <!--Grid column-->
+  
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+          <p class="text-uppercase">Next Conferences  Amsterdam and Tokyo</p>
+  
+    
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+  
+    <!-- Copyright -->
+    <div class="row p-4" style="background-color: rgba(0, 0, 0, 0.2);">
+      <div class="col-md-8">
+        <a class="text-dark text-muted" href="#">
+            Contact
+            F.A.Q
+            Cookies Policy
+            Legal Terms
+            Privacy Policy
+            English</a>
+      </div>
+
+      <div class="col-md-4">
+        <a href="#">Private Cloud Stack</a>
+      </div>
+    </div>
+    <!-- Copyright -->
+  </footer>
+    <!--js  -->
+
+    <!-- MDB -->
+<script
+type="text/javascript"
+src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.1.0/mdb.min.js"
+></script>
+
+
+  </body>
+</html>

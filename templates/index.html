@@ -1,0 +1,45 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container">
+      <!-- ... -->
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <!-- ... -->
+        {% if request.user.is_authenticated %}
+        <div class="navbar-nav ml-auto">
+          <a href="{% url 'profile' request.user.username %}"
+              class="nav-item nav-link {% if request.user.username in request.path %}active{% endif %}">
+              Profile, {{request.user.username}}
+           </a>
+           <a href="{% url 'postproject' %}" class="nav-item nav-link">post project</a>
+          <a href="{% url 'logout' %}" class="nav-item nav-link">Log out</a>
+        </div>
+        {% else %}
+        <a href="{% url 'signup' %}" class="nav-item nav-link">Register</a>
+        <a href="{% url 'login' %}" class="nav-item nav-link">login</a>
+        {% endif %}
+      </div>
+    </div>
+    
+  </nav>
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 5rem;">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+{% endif %}
+
+
+
+{% for project in projects %}
+  {% if project.image %}
+  <img class="card-img-top col-sm-3 col-4 my-3" src="{{ project.image.url }}" width="100" height="100" alt="{{ project.title }}">
+  {% else %}
+  <img class="card-img-top col-sm-3 col-4 my-3" src="{% static 'img/avatar.jpg' %}" alt="{{ project.title }}">
+  {% endif %}
+  <a href="{% url 'projects_details' project.id %}">{{ project.title}}</a>
+  <p>{{ project.technologies}}</p>
+{% endfor %}
