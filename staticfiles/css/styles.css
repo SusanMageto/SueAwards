@@ -20,14 +20,6 @@
   border: 3px solid gold;
 }
 
-.main {
-  height: 70vh;
-  background-image: url("static/img/hero.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 100%;
-}
-
 :root {
   --rating-size:40px;
   --bar-size: 0.1rem;
