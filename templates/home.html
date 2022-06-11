@@ -141,11 +141,11 @@
         <div class="row mt-4">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-    
+              {% if proje %}
                 <h1 class="mt-4 text-center">{{proje.title}}</h1>
     
                 <p class="mt-2 text-center">{{proje.user.username}}</p>
-    
+                {% endif %}
                 <div class="row text-center">
     
                     <div class="text-center col-md-2">
@@ -189,6 +189,7 @@
 <div class="container">
   <h6 class="mt-4">Sites of the day Previous Winners</h6>
     <div class="row mt-4">
+      {% if projects %}
       {% for project in projects %}
         <div class="col-md-4">
             <div class="card">
@@ -216,6 +217,7 @@
               </div>
         </div>
         {% endfor %}
+        {% endif %}
        
     </div>
 </div>
