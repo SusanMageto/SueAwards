@@ -5,6 +5,10 @@ Author
 Description
 A site where users can post their projects and the projects get rated by other users
 
+API endpoints
+https://sueawards.herokuapp.com/users/api/v1/profiles/
+https://sueawards.herokuapp.com/projects/api/v1/projects/
+
 Installation Instruction
 To get the code..
 
